@@ -52,13 +52,13 @@ const App = () => {
                                         (
                                         <PluginSender
                                             pluginSource='http://localhost:3001/plugin.html'
+                                            onError={onErrorOne}
+                                            showAlertsInPlugin={true}                                            
                                             id={data.me.id}
                                             name={`${data.me.firstName} ${data.me.surname}`}
                                             username={data.me.username}
                                             setWidth={setWidth}
                                             width={width}
-                                            onError={onErrorOne}
-                                            showAlertsInPlugin={true}
                                         />
                                         )
                                     }
