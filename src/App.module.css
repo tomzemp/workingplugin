@@ -1,9 +1,19 @@
 .container {
     width: 100%;
     height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     font-size: 1rem;
+    margin: 20px;
+}
+.appAlertButton {
+    margin: 8px;
+}
+
+.passIdContainer {
+    display: flex;
+}
+
+.pluginExampleContainer {
+    margin: 40px 0 40px 0;
+    width: 100%;
+    align-self: center;
 }

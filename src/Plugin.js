@@ -1,6 +1,6 @@
+import { useAlert, PluginWrapper } from '@dhis2/app-runtime'
 import React, {useEffect, useState} from 'react'
-import { PluginWrapper } from '@dhis2/app-runtime'
-import { useAlert } from '@dhis2/app-runtime'
+import classes from './Plugin.module.css'
 
 const InnerButton = () => {
     const [throwInnerErrorNow, setThrowInnerErrorNow] = useState(false)
@@ -13,8 +13,46 @@ const InnerButton = () => {
     return (
         <>
         <br/>
-        <button onClick={()=>{setThrowInnerErrorNow(true)}}>Throw error (inner)</button>
+        <button onClick={()=>{setThrowInnerErrorNow(true)}}>Throw an error (inner)</button>
         </>
+    )
+}
+
+const PluginInner = ({propsFromParent}) => {
+    const [pluginWidth, setPluginWidth] = useState()
+            
+    const { show } = useAlert(
+        ({ username }) => `Alert about ${username}`,
+        {critical: true}
+    )            
+    useEffect(()=>{setPluginWidth(propsFromParent.width)},[propsFromParent.width])
+
+    const [throwErrorNow, setThrowErrorNow] = useState(false)
+    useEffect(()=>{
+        if(throwErrorNow){
+            throw new Error('Error from top-level PluginWrapper')
+        }
+    },[throwErrorNow])
+
+    return(
+        <div className={classes.pluginContainer}>
+            <span className={classes.pluginIntro}>{`👋 ${propsFromParent.name}. I am a plugin that doesn't do very much, but I can ask my parent app to reset my width`}</span>
+            <span className={classes.pluginPassedProps}>{`Passed props ${JSON.stringify(propsFromParent)}`}</span>
+            <div>
+                <div className={classes.buttonStrip}>
+                    <input value={pluginWidth||''} onChange={(ev)=>{
+                        setPluginWidth(ev.target.value)}}/>
+                    <button onClick={()=>{propsFromParent.setWidth(pluginWidth)}}>
+                        Update width
+                    </button>
+                </div>
+                <div className={classes.buttonStrip}>
+                    <button onClick={()=>show({username: propsFromParent.name, isCurrentUser: false})}>Show an alert</button>
+                    <button onClick={()=>{setThrowErrorNow(true)}}>Throw an error (outer)</button>
+                    <InnerButton />
+                </div>
+            </div>
+        </div>
     )
 }
 
@@ -22,36 +60,7 @@ const MyPlugin = () => (
 
     <PluginWrapper requiredProps={['id']}>
         {(propsFromParent)=>{
-            const [pluginWidth, setPluginWidth] = useState()
-            const { show } = useAlert(
-                ({ username }) => `Alert about ${username}`
-            )            
-            useEffect(()=>{setPluginWidth(propsFromParent.width)},[propsFromParent.width])
-
-            const [throwErrorNow, setThrowErrorNow] = useState(false)
-            useEffect(()=>{
-                if(throwErrorNow){
-                    throw new Error('Error from top-level PluginWrapper')
-                }
-            },[throwErrorNow])
-
-            return(
-                <>
-                    <h3>{`Passed props ${JSON.stringify(propsFromParent)}`}</h3>
-                    <div>
-                        <input value={pluginWidth||''} onChange={(ev)=>{
-                            setPluginWidth(ev.target.value)}}/>
-                        <button onClick={()=>{propsFromParent.setWidth(pluginWidth)}}>
-                            Update width
-                        </button>
-                        <button onClick={()=>show({username: propsFromParent.name, isCurrentUser: false})}>Show an alert</button>
-                        {/* errors within the level of te PluginWrapper child function will be caught by appwrapper ErrorBoundary */}
-                        <button onClick={()=>{setThrowErrorNow(true)}}>throw an error (outer)</button>
-                        {/* error in components will be caught by PluginWrapper ErrorBoundary  */}
-                        <InnerButton />
-                    </div>
-                </>
-            )
+            return <PluginInner propsFromParent={propsFromParent} />
         }}
     </PluginWrapper>
 )
