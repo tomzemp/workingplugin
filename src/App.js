@@ -1,4 +1,5 @@
 import { useAlert, DataQuery, PluginSender } from '@dhis2/app-runtime'
+import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import classes from './App.module.css'
 
@@ -15,6 +16,11 @@ const CustomError = ({error}) => (
         <p>{error?.message}</p>
     </>
 )
+
+CustomError.propTypes = {
+    error: PropTypes.object,
+}
+
 
 const App = () => {
     const [includeId, setIncludeId] = useState(true)
@@ -39,7 +45,6 @@ const App = () => {
                             <h1>
                                 Test plugins
                             </h1>
-                            
                             <button className={classes.appAlertButton} onClick={show}>show alert in app</button>                    
 
                             <div className={classes.pluginExampleContainer}>

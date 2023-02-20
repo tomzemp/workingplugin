@@ -1,4 +1,5 @@
-import { useAlert, PluginWrapper } from '@dhis2/app-runtime'
+import { useAlert } from '@dhis2/app-runtime'
+import PropTypes from 'prop-types'
 import React, {useEffect, useState} from 'react'
 import classes from './Plugin.module.css'
 
@@ -56,13 +57,16 @@ const PluginInner = ({propsFromParent}) => {
     )
 }
 
-const MyPlugin = () => (
+PluginInner.propTypes = {
+    propsFromParent: PropTypes.object,
+}
 
-    <PluginWrapper requiredProps={['id']}>
-        {(propsFromParent)=>{
-            return <PluginInner propsFromParent={propsFromParent} />
-        }}
-    </PluginWrapper>
+const MyPlugin = ({propsFromParent}) => (
+    <PluginInner propsFromParent={propsFromParent} />
 )
+
+MyPlugin.propTypes = {
+    propsFromParent: PropTypes.object,
+}
 
 export default MyPlugin
