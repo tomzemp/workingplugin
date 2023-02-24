@@ -1,4 +1,4 @@
-import { useAlert, DataQuery, PluginSender } from '@dhis2/app-runtime'
+import { useAlert, DataQuery, Plugin } from '@dhis2/app-runtime'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import classes from './App.module.css'
@@ -55,7 +55,7 @@ const App = () => {
                                 <div style={{width: `${width}%`, border: '1px solid', height: '200px'}}>
                                     {error ? (<CustomError error={error} />) :
                                         (
-                                        <PluginSender
+                                        <Plugin
                                             pluginSource='http://localhost:3001/plugin.html'
                                             onError={onErrorOne}
                                             showAlertsInPlugin={true}                                            
@@ -80,7 +80,7 @@ const App = () => {
                                 <p>{`Current width (plugin2): ${otherWidth}%`}</p>
                                 <div style={{width: `${otherWidth}%`, border: '5px dotted blue', height: '200px'}}>
                                     
-                                    <PluginSender
+                                    <Plugin
                                         pluginSource='http://localhost:3001/plugin.html'
                                         id={includeId ? data.me.id : null}
                                         name={`${data.me.firstName} ${data.me.surname}`}

@@ -1,5 +1,4 @@
 import { useAlert } from '@dhis2/app-runtime'
-import PropTypes from 'prop-types'
 import React, {useEffect, useState} from 'react'
 import classes from './Plugin.module.css'
 
@@ -19,7 +18,7 @@ const InnerButton = () => {
     )
 }
 
-const PluginInner = ({propsFromParent}) => {
+const PluginInner = (propsFromParent) => {
     const [pluginWidth, setPluginWidth] = useState()
             
     const { show } = useAlert(
@@ -57,16 +56,8 @@ const PluginInner = ({propsFromParent}) => {
     )
 }
 
-PluginInner.propTypes = {
-    propsFromParent: PropTypes.object,
-}
-
-const MyPlugin = ({propsFromParent}) => (
-    <PluginInner propsFromParent={propsFromParent} />
+const MyPlugin = (propsFromParent) => (
+    <PluginInner {...propsFromParent} />
 )
-
-MyPlugin.propTypes = {
-    propsFromParent: PropTypes.object,
-}
 
 export default MyPlugin
