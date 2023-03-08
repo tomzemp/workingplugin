@@ -12,11 +12,11 @@
     "lint": "d2-style check"
   },
   "devDependencies": {
-    "@dhis2/cli-app-scripts": "^10.2.0",
+    "@dhis2/cli-app-scripts": "^10.3.1",
     "@dhis2/cli-style": "^10.5.1"
   },
   "dependencies": {
-    "@dhis2/app-runtime": "^3.7.0",
+    "@dhis2/app-runtime": "^3.9.0",
     "post-robot": "^10.0.46"
   }
 }
