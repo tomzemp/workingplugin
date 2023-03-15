@@ -5,6 +5,9 @@ const config = {
         app: './src/App.js',
         plugin: './src/Plugin.js',
     },
+
+    requiredProps: ['id'],
+
 }
 
 module.exports = config
