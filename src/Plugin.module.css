@@ -1,5 +1,5 @@
 .pluginContainer {
-    margin: 16px;
+    margin: 0px;
 }
 
 .buttonStrip {
@@ -10,6 +10,7 @@
 
 .buttonStrip * {
     margin-right: 8px;
+    margin-bottom: 4px;
 }
 
 .pluginIntro {
