@@ -20,8 +20,6 @@ const InnerButton = () => {
 
 const PluginInner = (propsFromParent) => {
     const [pluginBackgroundColor, setPluginBackgroundColor] = useState()
-    const [items, setItems] = useState([])
-    const [sampleString, setSampleString] = useState('sample_string:')
             
     const { show } = useAlert(
         ({ username }) => `Alert about ${username}`,
@@ -53,26 +51,6 @@ const PluginInner = (propsFromParent) => {
                     <button onClick={()=>{setThrowErrorNow(true)}}>Throw an error (outer)</button>
                     <InnerButton />
                     
-                </div>
-                <div>
-                    <h3>Example height</h3>
-                    <button onClick={()=>{setItems({...items, [Object.keys(items).length+1]:true})}}>Add something</button>
-                    <ul>
-                    {Object.keys(items).map(k=>(
-                        !items[k] ? null : (
-                            <li key={k}>
-                                <span>{k}</span>
-                                <button onClick={()=>{setItems({...items,[k]:false})}}>Delete</button>
-                            </li>
-                            )
-                        ))}
-                    </ul>
-                </div>
-                <div>
-                    <h3>Example width</h3>
-                    <button onClick={()=>{setSampleString(sampleString+'_and_some_more_text')}}>Add to string</button>                    
-                    <p>{sampleString}</p>
-                    <button onClick={()=>{setSampleString('sample_string:')}}>Reset string</button>
                 </div>
             </div>
         </div>

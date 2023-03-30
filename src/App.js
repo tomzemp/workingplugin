@@ -1,6 +1,6 @@
 import { useAlert, DataQuery, Plugin } from '@dhis2/app-runtime'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import classes from './App.module.css'
 
 const query = {
@@ -27,11 +27,11 @@ const App = () => {
     const {show} = useAlert('normal app alert')
     const [backgroundColor, setBackgroundColor] = useState('peachPuff')
     const [backgroundColorTwo, setBackgroundColorTwo] = useState('lightBlue')
-    const [showLongString, setShowLongString] = useState(false)
+    const [pluginPort, setPluginPort] = useState('3001')
 
 
     const [error,setError] = useState(null)
-    const longString = "Once_upon_a_time,_there_was_an_app_that_had_a_ridiculously_long_string._Why_did_the_people_make_me_so_long,_the_string_asked_itself?_If_I_were_written_in_a_language_without_spaces,_then_I_could_understand_the_choice_not_to_have_spaces,_but_I_am_written_in_English_and_therefore_my_creator_really_ought_to_have_used_spaces_and_not_underscores_to_separate_the_words_which_compose_me._Now_I_am_forced_to_flow_far_far_out_to_the_ends_of_the_page_and_cause_problems_for_those_who_have_to_use_me"
+    const pluginInputRef = useRef()
 
     return (
         <div className={classes.container}>
@@ -49,30 +49,29 @@ const App = () => {
                             <div className={classes.pluginExampleContainer}>
                                 <h2>Plugin 1</h2>
                                 <h3>The app has custom handling for errors from this plugin and specifies that it should show alerts in the iframe</h3>
-                                <h4><i>Uses auto-resizing for height</i></h4>
 
                                 <p>{`Current background-color (plugin1): ${backgroundColor}`}</p>
+                                <input ref={pluginInputRef}/>
+                                <button onClick={()=>{setPluginPort(pluginInputRef.current.value)}}>
+                                    Update plugin port
+                                </button>
                                 <div style={{backgroundColor: `${backgroundColor}`, border: 'none'}}>
                                     {error ? (<CustomError error={error} />) :
                                         (
                                         <Plugin
-                                            pluginSource='http://localhost:3001/plugin.html'
+                                            pluginSource={`http://localhost:${pluginPort}/plugin.html`}
                                             onError={setError}
                                             showAlertsInPlugin={true}
                                             id={data.me.id}
                                             name={`${data.me.firstName} ${data.me.surname}`}
                                             username={data.me.username}
                                             setBackgroundColor={setBackgroundColor}
-                                            automaticallyResize={true}
                                         />
                                         )
                                     }
                                 </div>
                             </div>
-                            <button onClick={()=>{setShowLongString(prev=>!prev)}}>toggle long string</button>
-                            {showLongString &&
-                                <span>{longString}</span>
-                            }
+
                                 
 
                             <div className={classes.pluginExampleContainer}>
@@ -92,7 +91,7 @@ const App = () => {
                                         name={`${data.me.firstName} ${data.me.surname}`}
                                         username={data.me.username}
                                         setBackgroundColor={setBackgroundColorTwo}
-                                        height={350}
+                                        height={200}
                                     />
                                 </div>
                             </div>
