@@ -22,6 +22,7 @@ const PluginInner = (propsFromParent) => {
     const [pluginBackgroundColor, setPluginBackgroundColor] = useState()
     const [items, setItems] = useState([])
     const [sampleString, setSampleString] = useState('sample_string:')
+    const [controlledWidth, setControlledWidth] = useState(500)
             
     const { show } = useAlert(
         ({ username }) => `Alert about ${username}`,

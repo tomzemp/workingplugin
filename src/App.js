@@ -52,7 +52,7 @@ const App = () => {
                                 <h4><i>Uses auto-resizing for height</i></h4>
 
                                 <p>{`Current background-color (plugin1): ${backgroundColor}`}</p>
-                                <div style={{backgroundColor: `${backgroundColor}`, border: 'none'}}>
+                                <div style={{backgroundColor: `${backgroundColor}`, border: '1px solid black', display: 'inline-block'}}>
                                     {error ? (<CustomError error={error} />) :
                                         (
                                         <Plugin
@@ -75,7 +75,7 @@ const App = () => {
                             }
                                 
 
-                            <div className={classes.pluginExampleContainer}>
+                            {/* <div className={classes.pluginExampleContainer}>
                                 <h2>Plugin 2</h2>
                                 <h3>The plugin uses the default error boundary, and has alerts show in main window (the default)</h3>
                                 <h4><i>Has a fixed height of 350px</i></h4>
@@ -95,7 +95,7 @@ const App = () => {
                                         height={350}
                                     />
                                 </div>
-                            </div>
+                            </div> */}
                         </>
                         )
                     }
