@@ -1,6 +1,7 @@
 .pluginContainer {
     margin: 0px;
     width: auto;
+    display:inline-block;
 }
 
 .buttonStrip {
